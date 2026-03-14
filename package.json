@@ -1,0 +1,17 @@
+{
+  "name": "importador-excel-para-postgres",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "lint": "node --check server.js && node --check public/app.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "multer": "^2.0.0",
+    "pg": "^8.11.5"
+  }
+}

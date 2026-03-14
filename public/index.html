@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Importador Excel → Postgres</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__title">Importador Excel → Postgres</div>
+      <div class="header__actions">
+        <button id="clearAllBtn" class="btn btn--ghost" type="button">Limpar informações</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <nav class="tabs" role="tablist" aria-label="Abas">
+        <button class="tab is-active" type="button" data-tab="conexao" role="tab" aria-selected="true">Conexão</button>
+        <button class="tab" type="button" data-tab="teste" role="tab" aria-selected="false">Testes</button>
+        <button class="tab" type="button" data-tab="mapeamento" role="tab" aria-selected="false">Mapeamento</button>
+        <button class="tab" type="button" data-tab="importacao" role="tab" aria-selected="false">Importação</button>
+      </nav>
+
+      <section class="panel is-active" id="tab-conexao" role="tabpanel">
+        <h2>Conexão com Postgres</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="field__label">Host</span>
+            <input id="pgHost" class="input" autocomplete="off" placeholder="localhost" />
+          </label>
+          <label class="field">
+            <span class="field__label">Porta</span>
+            <input id="pgPort" class="input" inputmode="numeric" autocomplete="off" placeholder="5432" />
+          </label>
+          <label class="field">
+            <span class="field__label">Usuário</span>
+            <input id="pgUser" class="input" autocomplete="off" placeholder="postgres" />
+          </label>
+          <label class="field">
+            <span class="field__label">Senha</span>
+            <input id="pgPassword" class="input" type="password" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="field__label">Database</span>
+            <input id="pgDatabase" class="input" autocomplete="off" placeholder="meu_banco" />
+          </label>
+          <label class="field field--inline">
+            <input id="pgSsl" type="checkbox" />
+            <span class="field__label">SSL (rejectUnauthorized: false)</span>
+          </label>
+          <label class="field">
+            <span class="field__label">Schema</span>
+            <input id="pgSchema" class="input" autocomplete="off" placeholder="public" />
+          </label>
+        </div>
+        <div class="row">
+          <button id="saveConnBtn" class="btn" type="button">Salvar em cache</button>
+          <span id="connStatus" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="panel" id="tab-teste" role="tabpanel">
+        <h2>Testes</h2>
+        <div class="row">
+          <button id="testConnBtn" class="btn" type="button">Testar conexão Postgres</button>
+          <span id="testConnStatus" class="muted"></span>
+        </div>
+        <div class="row">
+          <button id="loadSchemaBtn" class="btn btn--secondary" type="button">Carregar tabelas/colunas</button>
+          <span id="schemaStatus" class="muted"></span>
+        </div>
+        <div class="card">
+          <div class="card__title">Schema</div>
+          <pre id="schemaPreview" class="pre"></pre>
+        </div>
+      </section>
+
+      <section class="panel" id="tab-mapeamento" role="tabpanel">
+        <h2>Mapeamento</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="field__label">Arquivo Excel</span>
+            <input id="excelFile" type="file" accept=".xlsx,.xls" />
+          </label>
+          <label class="field">
+            <span class="field__label">Aba</span>
+            <select id="excelSheet" class="select"></select>
+          </label>
+          <label class="field">
+            <span class="field__label">Linha do cabeçalho</span>
+            <input id="excelHeaderRow" class="input" inputmode="numeric" autocomplete="off" placeholder="1" />
+          </label>
+          <label class="field">
+            <span class="field__label">Tabela destino</span>
+            <select id="dbTable" class="select"></select>
+          </label>
+        </div>
+
+        <div class="row">
+          <button id="previewExcelBtn" class="btn btn--secondary" type="button">Ler colunas do Excel</button>
+          <button id="autoMapBtn" class="btn btn--secondary" type="button">Auto-mapear por nome</button>
+          <button id="saveMappingBtn" class="btn" type="button">Salvar mapeamento em cache</button>
+          <span id="mappingStatus" class="muted"></span>
+        </div>
+
+        <div class="card">
+          <div class="card__title">Amostra do Excel</div>
+          <pre id="excelPreview" class="pre"></pre>
+        </div>
+
+        <div class="card">
+          <div class="card__title">Mapeamento (Excel → Postgres)</div>
+          <div id="mappingGrid" class="mapping"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="tab-importacao" role="tabpanel">
+        <h2>Importação</h2>
+        <div class="row">
+          <button id="importBtn" class="btn" type="button">Importar</button>
+          <span id="importStatus" class="muted"></span>
+        </div>
+        <div class="card">
+          <div class="card__title">Resultado</div>
+          <pre id="importResult" class="pre"></pre>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
+
