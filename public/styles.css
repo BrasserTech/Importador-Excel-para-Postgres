@@ -111,6 +111,12 @@ h2 {
   outline: none;
 }
 
+.select option,
+.select optgroup {
+  background: #0b1220;
+  color: #e5e7eb;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -172,7 +178,7 @@ h2 {
 
 .mapping {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
@@ -180,6 +186,7 @@ h2 {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .pill {
@@ -195,12 +202,14 @@ h2 {
   white-space: nowrap;
 }
 
+.pill--small {
+  flex: 0 0 auto;
+  opacity: 0.85;
+}
+
 @media (max-width: 920px) {
   .field {
     grid-column: span 6;
-  }
-  .mapping {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -209,4 +218,3 @@ h2 {
     grid-column: span 12;
   }
 }
-

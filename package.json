@@ -4,11 +4,13 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js",
-    "lint": "node --check server.js && node --check public/app.js"
+    "dev": "node server/index.js",
+    "start": "node server/index.js",
+    "lint": "node --check server/index.js && node --check public/app.js"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
+    "dotenv": "^16.6.1",
     "exceljs": "^4.4.0",
     "express": "^4.19.2",
     "multer": "^2.0.0",

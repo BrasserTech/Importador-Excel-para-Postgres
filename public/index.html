@@ -25,6 +25,10 @@
       <section class="panel is-active" id="tab-conexao" role="tabpanel">
         <h2>Conexão com Postgres</h2>
         <div class="grid">
+          <label class="field field--inline">
+            <input id="useServerEnv" type="checkbox" />
+            <span class="field__label">Usar DB_* do servidor (.env)</span>
+          </label>
           <label class="field">
             <span class="field__label">Host</span>
             <input id="pgHost" class="input" autocomplete="off" placeholder="localhost" />
@@ -62,9 +66,19 @@
 
       <section class="panel" id="tab-teste" role="tabpanel">
         <h2>Testes</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="field__label">Tabela de usuários</span>
+            <input id="usersTableName" class="input" autocomplete="off" placeholder="public.usuariostec" />
+          </label>
+        </div>
         <div class="row">
           <button id="testConnBtn" class="btn" type="button">Testar conexão Postgres</button>
           <span id="testConnStatus" class="muted"></span>
+        </div>
+        <div class="card">
+          <div class="card__title">Conexão (dados do banco)</div>
+          <pre id="connPreview" class="pre"></pre>
         </div>
         <div class="row">
           <button id="loadSchemaBtn" class="btn btn--secondary" type="button">Carregar tabelas/colunas</button>
@@ -78,27 +92,43 @@
 
       <section class="panel" id="tab-mapeamento" role="tabpanel">
         <h2>Mapeamento</h2>
+        <div class="card">
+          <div class="card__title">Ajuda</div>
+          <div class="muted">
+            1) Carregue tabelas/colunas na aba Testes. 2) Selecione o arquivo (.xlsx/.csv/.txt/.tsv) e clique “Ler colunas do arquivo”.
+            3) Em cada coluna (#n), selecione a tabela e a coluna do banco (pode ser mais de uma tabela no mesmo arquivo). 4) Salve o mapeamento em cache e importe.
+            Para CSV/TXT/TSV: informe o separador (ex: , ; | ou \t para TAB).
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__title">Logs (frontend)</div>
+          <pre id="clientLogs" class="pre"></pre>
+        </div>
         <div class="grid">
           <label class="field">
-            <span class="field__label">Arquivo Excel</span>
-            <input id="excelFile" type="file" accept=".xlsx,.xls" />
+            <span class="field__label">Arquivo</span>
+            <input id="excelFile" type="file" accept=".xlsx,.xls,.csv,.txt,.tsv,.zip" />
           </label>
           <label class="field">
             <span class="field__label">Aba</span>
             <select id="excelSheet" class="select"></select>
           </label>
           <label class="field">
+            <span class="field__label">Separador (CSV)</span>
+            <input id="csvDelimiter" class="input" autocomplete="off" placeholder="," />
+          </label>
+          <label class="field">
             <span class="field__label">Linha do cabeçalho</span>
             <input id="excelHeaderRow" class="input" inputmode="numeric" autocomplete="off" placeholder="1" />
           </label>
           <label class="field">
-            <span class="field__label">Tabela destino</span>
+            <span class="field__label">Tabela padrão (opcional)</span>
             <select id="dbTable" class="select"></select>
           </label>
         </div>
 
         <div class="row">
-          <button id="previewExcelBtn" class="btn btn--secondary" type="button">Ler colunas do Excel</button>
+          <button id="previewExcelBtn" class="btn btn--secondary" type="button">Ler colunas do arquivo</button>
           <button id="autoMapBtn" class="btn btn--secondary" type="button">Auto-mapear por nome</button>
           <button id="saveMappingBtn" class="btn" type="button">Salvar mapeamento em cache</button>
           <span id="mappingStatus" class="muted"></span>
@@ -131,4 +161,3 @@
     <script src="/app.js"></script>
   </body>
 </html>
-
